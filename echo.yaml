@@ -38,8 +38,6 @@ spec:
         app: echo-header
         version: v1
     spec:
-      nodeSelector:
-        kubernetes.io/arch: amd6
       serviceAccountName: echo-header
       containers:
       - name: echo-header 
