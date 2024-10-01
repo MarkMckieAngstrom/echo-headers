@@ -41,7 +41,7 @@ spec:
       serviceAccountName: echo-header
       containers:
       - name: echo-header 
-        image: wayofthedog/header-echo:v1.2
+        image: 373797717611.dkr.ecr.eu-west-2.amazonaws.com/dev-arch-testing:v6
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8090
