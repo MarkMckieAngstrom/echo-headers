@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: populate-test-data
+spec:
+  template:
+    spec:
+      initContainers:
+      - name: wait-for-mysql
+        image: busybox
+        command:
+          - sh
+          - -c
+          - |
+            #!/bin/sh
+            echo "Waiting for MySQL to be ready..."
+            until mysqladmin ping -h mysql -uroot -prootpassword --silent; do
+              echo "MySQL is unavailable - sleeping"
+              sleep 2
+            done
+            echo "MySQL is up - ready to execute SQL"
+      containers:
+      - name: mysql-client
+        image: mysql:8.0
+        command: ["sh", "-c", "mysql -h mysql-service -u root -prootpassword testdb -e \"source /sql/test-data.sql\""]
+        volumeMounts:
+        - name: sql-volume
+          mountPath: /sql
+      volumes:
+      - name: sql-volume
+        configMap:
+          name: mysql-init-sql
+      restartPolicy: OnFailure
