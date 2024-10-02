@@ -5,7 +5,8 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: manual
+  storageClassName: ebs-sc
+  persistentVolumeReclaimPolicy: Delete
   capacity:
     storage: 20Gi
   accessModes:
