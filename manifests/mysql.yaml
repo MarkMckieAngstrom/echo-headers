@@ -51,8 +51,15 @@ spec:
       labels:
         app: mysql
     spec:
+      initContainers:
+      - name: init-mysql
+        image: mysql:8.0
+        command: ['sh', '-c', 'mysql -h localhost -u root -prootpassword testdb < /docker-entrypoint-initdb.d/test-data.sql']
+        volumeMounts:
+        - name: init-sql
+          mountPath: /docker-entrypoint-initdb.d
       containers:
-      - image: mysql:5.6
+      - image: mysql:8.0
         name: mysql
         env:
           # Use secret in real usage
@@ -64,7 +71,12 @@ spec:
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
+        - name: init-sql
+          mountPath: /docker-entrypoint-initdb.d
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
           claimName: mysql-pv-claim
+      - name: init-sql
+        configMap:
+          name: mysql-init-sql
