@@ -71,4 +71,5 @@ spec:
         persistentVolumeClaim:
           claimName: mysql-pv-claim
       - name: init-sql
-        emptyDir: {}
+        configMap:
+          name: mysql-init-sql
