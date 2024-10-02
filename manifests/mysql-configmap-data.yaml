@@ -4,6 +4,8 @@ metadata:
   name: mysql-init-sql
 data:
   test-data.sql: |
+    CREATE DATABASE IF NOT EXISTS mydata;
+    USE mydata;
     CREATE TABLE users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(50),
