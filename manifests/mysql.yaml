@@ -25,6 +25,19 @@ spec:
     requests:
       storage: 20Gi
 ---
+# this pvc will be used to store downloaded init.sql file
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: init-sql
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 50Mi
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -85,5 +98,8 @@ spec:
         persistentVolumeClaim:
           claimName: mysql-pv-claim
       - name: init-sql
-        configMap:
-          name: mysql-init-sql
+        #configMap:
+          #name: mysql-init-sql
+      - name: init-sql # this volume holds downloaded init.sql file.
+        persistentVolumeClaim:
+          claimName: init-sql
