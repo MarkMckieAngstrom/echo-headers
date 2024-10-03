@@ -72,7 +72,7 @@ spec:
             [
               "curl",
               "-o",
-              "/docker-entrypoint-initdb.d/initdb.sql",
+              "/tmp/data/initdb.sql",
               "https://github.com/MarkMckieAngstrom/echo-headers/blob/main/initdb.sql",
             ]
           volumeMounts:
