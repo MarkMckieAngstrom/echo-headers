@@ -25,19 +25,6 @@ spec:
     requests:
       storage: 20Gi
 ---
-# this pvc will be used to store downloaded init.sql file
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: init-sql
-spec:
-  accessModes:
-    - ReadWriteOnce
-  volumeMode: Filesystem
-  resources:
-    requests:
-      storage: 50Mi
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -64,20 +51,20 @@ spec:
       labels:
         app: mysql
     spec:
-      initContainers:
-        - name: fetch-sql
-          image: curlimages/curl:8.10.1
-          imagePullPolicy: IfNotPresent
-          command:
-            [
-              "curl",
-              "-o",
-              "/tmp/data/initdb.sql",
-              "https://github.com/MarkMckieAngstrom/echo-headers/blob/main/initdb.sql",
-            ]
-          volumeMounts:
-            - mountPath: /tmp/data
-              name: init-sql
+      #initContainers:
+        #- name: fetch-sql
+          #image: curlimages/curl:8.10.1
+          #imagePullPolicy: IfNotPresent
+          #command:
+            #[
+              #"curl",
+              #"-o",
+              #"/tmp/data/initdb.sql",
+              #"https://github.com/MarkMckieAngstrom/echo-headers/blob/main/initdb.sql",
+            #]
+          #volumeMounts:
+            #- mountPath: /tmp/data
+              #name: init-sql
       containers:
       - image: mysql:8.0
         name: mysql
@@ -98,8 +85,6 @@ spec:
         persistentVolumeClaim:
           claimName: mysql-pv-claim
       - name: init-sql
-        #configMap:
-          #name: mysql-init-sql
-        emptyDir: {}
-        persistentVolumeClaim:
-          claimName: init-sql
+        configMap:
+          name: mysql-init-sql
+
