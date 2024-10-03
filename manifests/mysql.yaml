@@ -36,6 +36,20 @@ spec:
       labels:
         app: mysql
     spec:
+      #initContainers:
+        #- name: fetch-sql
+          #image: curlimages/curl:8.10.1
+          #imagePullPolicy: IfNotPresent
+          #command:
+            #[
+              #"curl",
+              #"-o",
+              #"/tmp/data/initdb.sql",
+              #"https://github.com/MarkMckieAngstrom/echo-headers/blob/main/initdb.sql",
+            #]
+          #volumeMounts:
+            #- mountPath: /tmp/data
+              #name: init-sql
       containers:
       - image: mysql:8.0
         name: mysql
@@ -58,4 +72,3 @@ spec:
       - name: init-sql
         configMap:
           name: mysql-init-sql
-
