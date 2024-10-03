@@ -31,6 +31,7 @@ apiVersion: v1
 metadata:
   name: init-sql
 spec:
+  storageClassName: ebs-sc
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
