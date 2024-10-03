@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
 spec:
-  storageClassName: ebs-sc
+  storageClassName: gp3
   accessModes:
     - ReadWriteOnce
   resources:
