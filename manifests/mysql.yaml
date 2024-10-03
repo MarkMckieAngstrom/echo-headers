@@ -51,6 +51,20 @@ spec:
       labels:
         app: mysql
     spec:
+      initContainers:
+        - name: fetch-sql
+          image: curlimages/curl:8.10.1
+          imagePullPolicy: IfNotPresent
+          command:
+            [
+              "curl",
+              "-O",
+              "https://github.com/MarkMckieAngstrom/echo-headers/blob/main/initdb.sql",
+              "/docker-entrypoint-initdb.d/dump.sql",
+            ]
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d
+              name: init-sql
       containers:
       - image: mysql:8.0
         name: mysql
