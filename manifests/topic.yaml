@@ -8,14 +8,4 @@ spec:
   topicName: test-arch
   partitions: 1
   replicas: 1
----
-apiVersion: kafka.strimzi.io/v1beta2
-kind: KafkaTopic
-metadata:
-  name: arch-test
-  labels:
-    strimzi.io/cluster: my-cluster
-spec:
-  topicName: test-arch
-  partitions: 1
-  replicas: 1
+
