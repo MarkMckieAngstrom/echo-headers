@@ -101,5 +101,6 @@ spec:
         #configMap:
           #name: mysql-init-sql
       - name: init-sql # this volume holds downloaded init.sql file.
+        emptyDir: {}
         persistentVolumeClaim:
           claimName: init-sql
