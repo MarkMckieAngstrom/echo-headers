@@ -76,7 +76,7 @@ spec:
               "https://github.com/MarkMckieAngstrom/echo-headers/blob/main/initdb.sql",
             ]
           volumeMounts:
-            - mountPath: /docker-entrypoint-initdb.d
+            - mountPath: /tmp/data
               name: init-sql
       containers:
       - image: mysql:8.0
