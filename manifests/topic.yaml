@@ -6,7 +6,7 @@ metadata:
     strimzi.io/cluster: my-cluster
 spec:
   topicName: test-arch
-  partitions: 1
-  replicas: 1
+  partitions: 10
+  replicas: 2
   config:
     retention.ms: 7200000
